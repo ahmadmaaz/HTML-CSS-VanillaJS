@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        <style>
+            body{user-select: none;-webkit-user-select: none;-ms-user-select: none;}
+            #header{ background-color: #161B49; text-align: center; font-size: xx-large; color: orange ;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; }
+            .colors button{ width: 40px; height: 40px; border-radius: 20px; margin-right: 2%; } 
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid" id="header"> Amazon </div>
+        <div class="container">
+            <div>
+            <div style='position: absolute;left:23.5%;top: 40%; float: left; color: red;font-size: 3vw; ' class="heart"> 65 💓</div>
+            <div style='position: absolute;left:21.5%;top: 40%; float: left; color: white; font-size: 3vw;' class="clock">  <b>19:35:30  </b></div>
+            <img src="bluewatch.png" class="img-fluid float-left" id='watch-pic'></div>
+            
+            <div style="padding-top: 5%;"> 
+            <h1 ><b> Fitbit 19- The Smartest Watch </b></h1>
+            <p>We are here to introduce u to the smartest watch ever! Fit-bit 19! lorem ist moo sing  mohhh alo ahmad hey we are here muhhaha</p>
+            <h4> Select Colors</h4>
+            <div class="colors"> 
+            <button id='blue-button' style="background-color:#565681 ; border:1px solid #525257 ;"> </button>
+            <button id='black-button' style="background-color:#23211f; border:1px solid #23211f"> </button>
+            <button id='red-button' style="background-color:#ca3d22 ;border:1px solid #ca3d22 "> </button>
+            <button id='pink-button'style='background-color:#e9c7be ; border:1px solid #e9c7be '> </button>
+            <button id='purple-button' style="background-color: #8a5362 ; border:1px solid #8a5362 ;"> </button>
+            </div>
+            </div>
+            <h4> Select features</h4>
+            <button class="btn btn-info" style='margin-right: 1%;' id='clock-btn'>Clock</button>
+            <button class="btn btn-info" id='heart-btn'>Heart rate</button>
+            <div>
+            <button class="btn btn-danger" style="margin-top: 5%; font-size: x-large; padding: 1.5%;"> BUY NOW! </button>
+    </div> 
+        </div>
+        <script>
+            $('#blue-button').click(function(){$('#watch-pic').attr('src','bluewatch.png')})
+            $('#black-button').click(function(){$('#watch-pic').attr('src','blackwatch.png')})
+            $('#pink-button').click(function(){$('#watch-pic').attr('src','pinkwatch.png')})
+            $('#red-button').click(function(){$('#watch-pic').attr('src','redwatch.png')})
+            $('#purple-button').click(function(){$('#watch-pic').attr('src','purplewatch.png')})
+            $('#heart-btn').click(function(){ $('.clock').hide();$('.heart').show()})
+            $('#clock-btn').click(function(){ $('.clock').show();$('.heart').hide()})
+            $('.heart').hide()
+            
+            function tme(){
+                let date=new Date
+                let hours= date.getHours()
+                let minutes=date.getMinutes()
+                let seconds=date.getSeconds()
+                if (hours<10){ hours='0'+hours}
+                if (minutes<10){ minutes='0'+minutes}
+                if (seconds<10){ seconds='0'+seconds}
+                $('.clock').html(hours+':'+minutes+':'+seconds)
+            }
+            tme()
+            setInterval(tme,1000)
+        </script>
+    </body>
+</html>

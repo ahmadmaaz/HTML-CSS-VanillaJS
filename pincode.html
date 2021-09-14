@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html,body{background-color: #fbe0c3;}
+            .container{margin:5% 30% 15% 25%; background-color: #748b64;width: 50%; height: 50%; border-radius: 25%;user-select: none;-webkit-user-select: none;-ms-user-select: none;}
+            .numpad-container{margin: auto 18% auto auto; width: 50%;}
+            .pin_key{display: inline-flex;width: 5%; margin: 5%; text-align: center ;background-color: #f8efea; border: 2px solid #f8efea; border-radius: 30%; font-size: 2.5vw; padding: 3%;cursor: pointer;}
+            li{text-decoration: none; display: inline-flex;}
+            li{background-color: #748b64;font-size: 3vw; font-family: cursive; padding: 5%;}
+            nav{ background-color:#748b64 ; margin-top: 0%;}
+            .nav-container{ margin-left: 70%;}
+            .numpad-text{ font-size: 3vw;text-align: center;display:inline-flex;margin: 5% 25% 5% 25%; width: 50%;height: 3vw; background-color: cadetblue; border-radius: 1.5vw; animation-name: wrong; animation-duration: 3s; animation-play-state: paused;}
+            @media only screen and (max-width:600px ) {
+                html,body{height: 600px;}
+                nav{height: 15%;}
+                .nav-container{ margin-left: 0%;}
+                .container{margin: 20% 15% auto 15%; width: 70%; height:60%;}
+                li{ padding: 10%; font-size: large;}
+                .numpad-text{ height: 10%; font-size: larger; margin-left: 22%; }
+                .numpad-container{margin: 6% 10% auto 10% ; width: 80%; text-align: center;}
+                .pin_key{width: 10%; height: 12%; text-align: center;font-size: medium;}
+
+            }
+            
+           
+        </style>
+    </head>
+    <body>
+        <nav>
+            <ol> <div class="nav-container"><Li>About me</Li> <li> Yes</li> </div> </ol>
+        </nav>
+        <div class="container"> 
+        <input type="password" readonly class="numpad-text" > 
+        <div class="numpad-container">
+            <div class="pin_key" onclick="pincode(1)">1</div>
+            <div class="pin_key" onclick="pincode(2)">2</div>
+            <div class="pin_key" onclick="pincode(3)">3</div><br>
+            <div class="pin_key" onclick="pincode(4)">4</div>
+            <div class="pin_key" onclick="pincode(5)">5</div>
+            <div class="pin_key" onclick="pincode(6)">6</div><br>
+            <div class="pin_key" onclick="pincode(7)">7</div>
+            <div class="pin_key" onclick="pincode(8)">8</div>
+            <div class="pin_key" onclick="pincode(9)">9</div><br>
+            <div class="pin_key" onclick="dlt()"> ␡ </div>
+            <div class="pin_key" onclick="pincode(0)">0</div>
+            <div class="pin_key" onclick="check()">✓</div><br>
+        
+        </div>  
+        </div>
+    <script>
+        let equation='';
+        const password='1253';
+        function pincode(number){
+            if(equation.length < 4){
+            equation+= String(number)
+            document.querySelector('.numpad-text').value=equation;}}
+        function check(){
+            if(equation.length==4){
+            if(equation==password){ window.location.href='xo.html'}
+            else{ 
+            equation='';
+            
+            wronganimation()
+            setTimeout(function(){document.querySelector('.numpad-text').value=equation},600);
+            
+                
+            }
+            }else{ wronganimation()}
+        }
+        function wronganimation(){
+            document.querySelector('.numpad-text').style.background='red'
+            setTimeout(function(){document.querySelector('.numpad-text').style.margin= '5% 25.7% 5% 24.3%'},0);
+            setTimeout(function(){document.querySelector('.numpad-text').style.margin= '5% 24.3% 5% 25.7%'},200);
+            setTimeout(function(){document.querySelector('.numpad-text').style.margin= '5% 25% 5% 25%'},400);
+            setTimeout(function(){document.querySelector('.numpad-text').style.background='cadetblue'},600);}
+        function dlt(){
+            equation= equation.slice(0,-1);
+            document.querySelector('.numpad-text').value=equation;
+            
+        }
+    </script>
+    </body>
+</html>

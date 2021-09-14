@@ -1,0 +1,19 @@
+.nav-link,.nav-link:hover{color: black; text-decoration: none; font-size: 1vw; margin: 2px;}
+.nav-item{ background-color: lightskyblue; margin: 13px; }
+body,html{user-select: none;-webkit-user-select: none;-ms-user-select: none; background-color: #fff4ab;}
+ul{ background-color: #00034e;}
+#first-container{ background-color: lightskyblue;margin: auto; text-align: center;}
+#fullstack-pic{ border: 1px solid black; margin-top: 5%;}
+pre{font-size: 1vw; color: #10064b;}
+h1{font-size: 3.5vw; color: black;}
+#prof-pic{margin-left: 30%;}
+.card{ width: 400px; height:300px ;margin: auto; margin-bottom: 5%;}
+
+@media only screen and (max-width:600px ){
+    .nav-link,.nav-link:hover{color: black; text-decoration: none; font-size: 3vw; margin: 0px;}
+    .nav-item{ background-color:lightskyblue; margin: 15px 5px 15px 0px;  }
+    h1{font-size: 5vw;}
+    pre{font-size: 3vw;}
+    #prof-pic{margin-left: 0%; }
+    .card{width: 90%;}
+}

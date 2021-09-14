@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html,body{height: 100%; width: 100%; vertical-align: middle;}
+            .game{position: relative; height: 80%; width: 60% ; background-color:blue ; margin: auto; margin-top: 5%; overflow: hidden;}
+            .tunnel{ position: relative;height:100%; width:6%;background-color: green;position: relative; animation: block 2s infinite linear;top: 0%;}
+            @keyframes block{
+                0%{left: 100%;}
+                100%{left: -5%;}
+            }
+            .player{position: absolute; width: 3%; height: 5%; background-color: yellow; bottom: 50%; left:15%;border-radius: 50%;}
+            .hole{ bottom: 50%;height:30% ;width:6%; background-color:blue; position: relative;animation: block 2s infinite linear;}
+        </style>
+    </head>
+    <body>
+        <div class="game" onclick="jump()"> 
+        <div class="tunnel"> </div>
+        <div class="hole"></div>
+        <div class="player"></div>
+    </div>
+        <script>
+            let jumping=0 
+            const hole= document.querySelector('.hole')
+            const tunnel= document.querySelector('.tunnel')
+            const player= document.querySelector('.player')
+            hole.addEventListener('animationiteration',()=>{ 
+            let random= Math.random()*100;
+            if (random<15){random+=20}else if(random>90){random-=10}
+            hole.style.bottom=random+'%'})
+        
+            setInterval(()=>{
+            playerbottom= parseInt(window.getComputedStyle(player).getPropertyValue('bottom'));
+            playerleft= parseInt(window.getComputedStyle(player).getPropertyValue('left'));
+            playerright= parseInt(window.getComputedStyle(player).getPropertyValue('right'));
+            playerwidth= parseInt(window.getComputedStyle(player).getPropertyValue('width'));
+            holeleft= parseInt(window.getComputedStyle(hole).getPropertyValue('left'))
+            holetop= parseInt(window.getComputedStyle(hole).getPropertyValue('top'))
+            holebottom= parseInt(window.getComputedStyle(hole).getPropertyValue('bottom'))
+            holeright= parseInt(window.getComputedStyle(hole).getPropertyValue('right'))
+            //console.log(playerleft, playerwidth,playerbottom, holeleft,holebottom )
+            if (holeleft+3<playerwidth+playerleft && playerbottom<holebottom-130 && !(playerleft-50>holeleft)){ alert('U lost'); console.log(holeright,playerright)}
+            
+            if (jumping==0){
+            player.style.bottom=playerbottom-3+'px';}},10);
+            function jump(){
+
+            jumping = 1;
+            let jumpCount = 0;
+            var jumpInterval = setInterval(function(){
+            var playerbottom = parseInt(window.getComputedStyle(player).getPropertyValue("bottom"));
+            if((playerbottom>6)&&(jumpCount<15)){
+            player.style.bottom=(playerbottom+3)+'px';
+            }
+            if(jumpCount>20){
+                clearInterval(jumpInterval);
+                jumping=0;
+                jumpCount=0;
+            }
+            jumpCount++;
+                    },10);
+                }
+        </script>
+
+    </body>
+</html>

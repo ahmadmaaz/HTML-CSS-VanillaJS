@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        
+        <style>
+            body{background-image: linear-gradient(to right,purple,red,pink);}
+            .ToDoContainer{width: 50%; margin: 5% 25% 10% 25%; text-align: center;}
+            li{ width: 100%;font-size: 2vw; background-color: white;list-style-type: none; padding: 2% ; height:max-content ; text-align: left;text-decoration: none; border-radius: 1vw; margin-top: 3%;}
+            li i{float: right; margin-left:2%; font-size: 3vw;  text-align: center;}
+            h1{width: 100%; font-size: 5vw;height: max-content; font-family: fantasy; }
+            input{ width: 50%; font-family: monospace; font-size: 2vw; height: 2vw; border-radius: 1vw;}
+            button{width: 20%; margin-left: 5%; background-color: black; color: white; height: 2vw;font-size: 1.5vw;}
+            
+        </style>
+    </head>
+    <body>
+        <div class="ToDoContainer">
+        <h1>To do List</h1>
+        <input>
+        <button>add </button>
+        <ul></ul>
+        </div>
+        <script>
+            
+            let todol=[]
+            $('button').click(function(){
+                date= new Date();
+                let input= $('input').val()
+                if (input.length>2 &&  ! (todol.includes(input))){
+                let todo = $("<li class='To-Do'></li>").text($('input').val());
+                var dlt= $('<i class="fas fa-minus-circle" class="pic"></i>').click(function(){
+                let y= $(this).parent()
+                y.hide()
+                todol.pop(y.val())
+                })
+                let check= $('<i class="fas fa-check"></i>').click(function(){
+                    let y= $(this).parent()
+                    $(y).css({'background-color':'cyan','text-decoration':'line-through'})
+                })
+    
+                $(todo).append(dlt,check)
+                $('ul').append(todo)
+                todol.push(input)
+                $('input').val("")
+
+            }})
+            
+        </script>
+    </body>
+    
+</html>

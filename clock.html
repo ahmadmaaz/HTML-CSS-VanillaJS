@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    </head>
+    <body id ='woah' >
+        <p style='text-align: center; margin-top: 300px; font-size:100px;' id='ok' onclick="time34()">Hey</p>
+        
+        <script>
+        console.log('ok')
+        setInterval(time34,1)
+        function time34(){
+        date= new Date();
+        let am_pm='am'
+        let hour= date.getHours();
+        let minute= date.getMinutes();
+        let second= date.getSeconds();
+        
+        if (hour>12){
+            hour-=12
+            am_pm='pm'}
+        else if (hour<12){
+            hour='0'+hour
+        }if (hour==0){
+            hour=12}
+        if(minute<10){
+            minute='0'+minute
+        }
+        if(second<10){
+            second='0'+second
+        }
+        document.getElementById('ok').innerHTML= hour+':'+minute+":"+second+"  "+ am_pm
+        
+        }
+        time34()
+        
+        
+        </script>
+    </body>
+</html>
