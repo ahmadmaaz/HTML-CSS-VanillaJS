@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            body{background-color: black;user-select: none;-webkit-user-select: none;-ms-user-select: none;}
+            #quiz{padding:3% 0% 3% 2%; margin-top: 10%;color: white; background-color: #0635d0;}
+            #quiz input{ width: 90%; height: max-content; font-size: large; margin-bottom: 1%; background-color: #d9eff2; color: black; }
+        </style>
+    </head>
+    <body>
+        <div class="conatiner-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4" id="quiz">
+                    <form>
+                        <h1>Question 1</h1>
+                        <p class="question-place"></p>
+                        <input type="button" class="option1" onclick="chck(this)">
+                        <input type="button" class="option2" onclick="chck(this)">
+                        <input type="button" class="option3" onclick="chck(this)">
+                        
+                    </form>
+                    </div>
+                    <div class="col-lg-4"></div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div></div>
+        <script>
+            Score=0
+            nmbque=0
+            opt1= $('.option1')
+            opt2=$('.option2')
+            opt3=$('.option3')
+            qu=$('.question-place')
+            opt=[opt1,opt2,opt3]
+            const generateRandomNumber = (min, max) =>  {
+            return Math.floor(Math.random() * (max - min) + min);
+            };
+            answeredques=[]
+            ques=[
+            {"que": 'The coldest place on the earth is:',
+            'option1':'Verkoyansk in Siberia','option2':'Yakutsk in Russia','option3':'Barrow in Alaska',
+            'answer':'Verkoyansk in Siberia'},
+            {"que":'Which colors must be mixed together to make green?',
+            'option1':'Red and blue','option2':'Orange and blue','option3':'Blue and yellow',
+            'answer':'Blue and yellow'},
+            {"que":'Which animal is the tallest in the world?',
+            'option1':'Elephant','option2':'Giraffe','option3':'Kangaroo',
+            'answer':'Giraffe'},
+            {"que":'In which country is the Leaning Tower of Pisa located?',
+            'option1':'England','option2':'Italy','option3':'Spain',
+            'answer':'Italy'},
+            {"que":'How many dots are on one six-sided die?',
+            'option1':'21','option2':'19','option3':'17',
+            'answer':'21'},
+            {"que":'What is the day after Christmas commonly known as?',
+            'option1':'Boxing Day','option2':'Shopping day','option3':'Prayer day',
+            'answer':'Boxing Day'},
+            {"que":'In what year did World War II end?',
+            'option1':'1939','option2':'1943','option3':'1945',
+            'answer':'1945'},
+            {"que":'Complete this proverb: "All roads lead to _______."',
+            'option1':'Home','option2':'Rome','option3':'Wisdom',
+            'answer':'Rome'},
+            {"que":'Where is Mount Everest located?',
+            'option1':'Tibet','option2':'Nepal','option3':'Between Tibet and Nepal',
+            'answer':'Between Tibet and Nepal'},
+            {"que":'Who is officially credited with the invention of the light bulb?',
+            'option1':'Nikola Tesla','option2':'Alexandr Graham Bell','option3':'Thomas Edison',
+            'answer':'Thomas Edison'},
+            {"que":'How many bones are there in an elephant"s trunk?',
+            'option1':'0','option2':'12','option3':'44',
+            'answer':'0'},
+            {"que":' How many straight edges does a cube have?',
+            'option1':'8','option2':'4','option3':'12',
+            'answer':'12'},
+            {"que":'How many months of the year have 31 days?',
+            'option1':'7','option2':'5','option3':'6',
+            'answer':'7'},
+            {"que":'Which social media app did Donald Trump try to block in the US?',
+            'option1':'Tinder','option2':'Tiktok','option3':'Imo',
+            'answer':'Tiktok'},
+            {"que":'What colour is most of the toilet paper in France?',
+            'option1':'White','option2':'Pink','option3':'Blue',
+            'answer':'Pink'},
+                ];
+            function question(){
+                nmbque++;
+                $('h1').html('Question '+nmbque)
+                if( answeredques.length<10){
+                for (one in opt){$(opt[one]).prop('disabled', false);$(opt[one]).css('background-color','#d9eff2') }
+                rndm=generateRandomNumber(0,ques.length)
+                
+                while (answeredques.includes(rndm)){
+                    rndm=generateRandomNumber(0,ques.length+1)
+                }
+                qu.html(ques[rndm]['que'])
+                opt1.val(ques[rndm]['option1'])
+                opt2.val(ques[rndm]['option2'])
+                opt3.val(ques[rndm]['option3'])
+                answer=ques[rndm]['answer']
+                answeredques.push(rndm)
+                   
+            } else{
+                opt1.slideUp()
+                opt2.slideUp()
+                opt3.slideUp()
+                qu.slideUp()
+                if (Score>5 && Score<7)
+                $('h1').text('Well done')
+            }}
+            function chck(e){
+                if ($(e).val()==answer){
+                    $(e).css('background-color','green');
+                    Score++;
+                    for(one in opt){$(opt[one]).prop('disabled', true);}
+                    setTimeout(()=>{question()},1000)
+                } else{
+                    $(e).css('background-color','red')
+                    
+                    for(one in opt){
+                        if ($(opt[one]).val()==answer){$(opt[one]).css('background-color','green')}
+                        $(opt[one]).prop('disabled', true);}
+                    setTimeout(()=>{question()},1000)
+                    
+                }
+            }
+            question()
+            
+        </script>
+    </body>
+</html>

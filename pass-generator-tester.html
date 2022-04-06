@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            body{user-select: none;-webkit-user-select: none;-ms-user-select: none;}
+            .card{ width: 300px; height: max-content;}
+            #pass_hold{width: 100%; height: max-content; border:  1px solid grey; font-family: Arial, Helvetica, sans-serif; text-align: center; padding: 2%;}
+            #nmb_len{width: 40%;}
+            #pass_inp{ width:100%; margin-top: 7%; height: max-content;font-family: Arial, Helvetica, sans-serif; text-align: center; padding: 2%; } 
+            
+        </style>
+    </head>
+    <body>
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title" >
+                                <div class="container-fluid" id="pass_hold">###########</div>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <input type="checkbox" id="nmb_only" value="123456789">  Numbers
+                                <br>
+                                <input type="checkbox" id="sm_letters" value="abcdefghijklmnopqrstuvwxyz">  Small Letters
+                                <br>
+                                <input type="checkbox" id="big_letters" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ">  Big Letters 
+                                <br>
+                                <input type="checkbox" id="special_letters" value="$#@!_-$#@!_-">  Special Characters
+                                <br>
+                                <hr>
+                                <input type="number" id="nmb_len" placeholder="Insert length of the paswword">
+                                <input type="button" value="Generate" id="generate_btn">
+                                <input type="button" value=" " id="copy_pass">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="container-fluid">
+                                <input type="text" id="pass_inp">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li id="long_prop">Long password</li>
+                                <li id="nmb_prop">Numbers</li>
+                                <li id="special_prop">Special characters</li>
+                                <li id="big_prop">Big letters</li>
+                                <li id="small_prop">Small letters</li>
+                                
+                            </ul>
+                            <h2 style="text-align: center;" id="pass_status"></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let text;
+            let pass;
+            // i named them thing prop just to make the algorithm work
+            const props={
+                small_prop:"abcdefghijklmnopqrstuvwxyz",
+                big_prop:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                nmb_prop:"1234567890",
+                special_prop:"$#@!_-$#@!_-",
+
+            }
+
+            function generate_pass(nmb) {
+                text="";
+                let group=['#nmb_only','#sm_letters','#big_letters','#special_letters']
+                for ( i in group ){
+                    if($(group[i]).is(':checked')){
+                    text+=$(group[i]).val()
+                }
+
+                pass=''
+                for(let i=0;i<nmb;i++){
+                    pass+= text.charAt(Math.floor(Math.random() * text.length))
+                }
+                $("#pass_hold").html(pass);
+               
+            }}
+            $("#generate_btn").click(()=>{
+                let nmb_len= $("#nmb_len").val()
+                if(nmb_len==="" || nmb_len<1){
+                    alert("Fill the length of the password")
+                }else{
+                generate_pass(nmb_len)
+                }
+            })
+
+            $("body").ready(()=>{
+
+                $("#nmb_only").prop("checked",true);
+                $("#nmb_len").val(5);
+                generate_pass(5)
+            })
+            $("#copy_pass").click(()=>{
+                navigator.clipboard.writeText(pass);
+            })
+
+            // The password checker script
+            
+            $("#pass_inp").on("input",function(){
+                pass_inp=$("#pass_inp").val();
+                if (pass_inp.length!=0){
+                    if (pass_inp.length<6){$("#long_prop").css("color","red");}
+                    else if(pass_inp.length>7){$("#long_prop").css("color","green");}
+                    for (prop in props){
+                        for (lttr in props[prop]){
+                            if (pass_inp.includes(props[prop][lttr])){
+                                $("#"+prop).css("color","green");
+                                break;
+                            }else{
+                                $("#"+prop).css("color","red");
+                            }
+                        }
+                    }
+
+                }else{
+                    props_final=["#long_prop","#nmb_prop","#small_prop","#big_prop","#special_prop"];
+                    for (prop_final in props_final){
+                        $(props_final[prop_final]).css("color","black");
+                    }
+                }
+                
+            })
+        </script>
+    </body>
+</html>    
